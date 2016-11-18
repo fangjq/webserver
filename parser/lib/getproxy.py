@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from random import randint
-import config
+from .. import config
 
 
 def get_random_proxy():

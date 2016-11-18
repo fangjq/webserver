@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import config
+from .. import config
 import xlwt
 import xlrd
 from xlutils.copy import copy

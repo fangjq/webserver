@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from pyquery import PyQuery as pq
-import config
-from lib.getuserinfo import get_user_info
-from lib.writetofile import write_to_excel, repeat_txt, repeat_excel
-from lib.writetofile import write_to_txt
+from .. import config
+from .getuserinfo import get_user_info
+from .writetofile import write_to_excel, repeat_txt, repeat_excel
+from .writetofile import write_to_txt
 from getproduct import get_product
 
 

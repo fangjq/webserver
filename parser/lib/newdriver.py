@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-import config
-from lib.getproxy import get_random_proxy
+from .. import config
+from .getproxy import get_random_proxy
 import copy
 import random
 
