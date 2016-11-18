@@ -22,9 +22,9 @@ DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 
 # C_DRIVER = webdriver.Chrome()
 # 请求超时时间,单位秒
-TIMEOUT = 30
+TIMEOUT = 5
 # 加载重试次数
-MAX_TRY = 6
+MAX_TRY = 2
 # 读取的URL文件
 FROM_FILE = 'file/urls.txt'
 # 写入的文件

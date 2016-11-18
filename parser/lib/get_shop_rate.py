@@ -44,7 +44,6 @@ def filter_shop_rate_tmall(soup, tag, class_name):
         group = re.search(pattern, li_val)
         if group:
             count = group.group(1)
-            print count
             if li_val.startswith(u'描述') :
                 ret["desc"] = count
             elif li_val.startswith(u'服务') :

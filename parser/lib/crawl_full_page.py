@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 import socket
 import urllib2
-import sys
-# sys.path.append('../')
-# import parser.config as config
 import config
 import re
 from selenium.common.exceptions import TimeoutException
@@ -12,23 +9,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from twisted.python.win32 import WindowsError
 from getrecommends import get_recommends
-from lib.filter import filter_comment
 from lib.newdriver import new_driver, new_proxy_driver
-from lib.writetofile import write_count, get_count
-from parse import parse_content
-from lib.geturls import get_urls
 from proxy.getproxy import update_proxy_pool
 import requests
-
-def get_itemId_sellerId(html):
-    matchObj = re.match(r'.*sellerId=(\d)&amp;itemId=(.*?) .*', html, re.M | re.I)
-
-    if matchObj:
-        print "matchObj.group() : ", matchObj.group()
-        print "matchObj.group(1) : ", matchObj.group(1)
-        print "matchObj.group(2) : ", matchObj.group(2)
-    else:
-        print "No match!!"
 
 def crawl(url, exe_js = True, fail_time=0):
     timeout = config.TIMEOUT
@@ -39,8 +22,8 @@ def crawl(url, exe_js = True, fail_time=0):
             driver = config.DRIVER
             driver.get(url)
             WebDriverWait(driver, timeout).until(
-                # EC.presence_of_element_located((By.ID, "content"))
-                EC.presence_of_element_located((By.ID, "J_TabRecommends"))
+                EC.presence_of_element_located((By.ID, "content"))
+                # EC.presence_of_element_located((By.ID, "J_TabRecommends"))
             )
             result = get_recommends(driver, config.MAX_TRY)
             if result :
