@@ -1,3 +1,6 @@
+import tornadoredis
+import redis
+
 import json
 import tornado.web
 
@@ -8,16 +11,22 @@ import xml.etree.ElementTree
 import time
 from urllib import urlencode
 from urllib import unquote
+from urllib import quote
 
 import traceback
-try:
-    # from parser.main import get_crawled_result
-    # from parser import config
-    from parser.main import *
-except:
-    traceback.print_exc()
+from parser.main import get_crawled_result
+
+import tornado.gen
+
+from multiprocessing import Process
 
 logger = logging.getLogger(__name__)
+
+def fetch_data(link):
+    redis_client = redis.Redis()
+    result = get_crawled_result(link)
+    redis_client.set(link, json.dumps(result))
+
 
 class WeChatTokenHandler(BaseHandler):
 
@@ -72,6 +81,35 @@ class WeChatTokenHandler(BaseHandler):
 class WeChatH5Handler(BaseHandler):
 
     def get(self):
+        logger.info("encoded:" + quote(self.get_argument("link")))
         link = unquote(self.get_argument("link"))
         logger.info("received link:" + link)
+
+        fetch_process = Process(target=fetch_data, args=(link,))
+        fetch_process.start()
+
         self.render("index.html")
+
+
+class WeChatEvalResultHandler(BaseHandler):
+
+    @tornado.web.asynchronous
+    @tornado.gen.engine
+    def get(self):
+
+        link = unquote(self.get_argument("link"))
+        logger.info("received link:" + link)
+
+        c = tornadoredis.Client()
+        result = yield tornado.gen.Task(c.get, link)
+
+        if result is None:
+            result = "{}"
+
+        logger.info("result:" + result)
+
+        self.set_header("Content-Type", "text/json")
+        self.write(result)
+        self.flush()
+        self.close()
+
