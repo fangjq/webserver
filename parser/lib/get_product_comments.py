@@ -81,7 +81,7 @@ def get_comments_by_sellerId_itemId(sellerId, itemId, is_write_to_file=True):
 
 
 def get_comments(html):
-    fileName = 'file/full_page/page.tmp'
+    fileName = '/tmp/page.tmp'
     write_to_txt(html, fileName)
     js = commands.getstatusoutput('grep "<script>(function(w, d)" ' + fileName)
     if js is None or len(js) < 20:
