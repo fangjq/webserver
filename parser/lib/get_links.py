@@ -17,7 +17,7 @@ shop_list = []
 link_list = []
 
 
-def get_results(keyword):
+def get_results(keyword, is_one_key = True):
     driver = l_config.DRIVER
     link = l_config.LINK
     driver.get(link)
@@ -33,9 +33,12 @@ def get_results(keyword):
         keyword = keyword.decode('utf-8', 'ignore')
         print keyword
         print u'输入关键字', keyword
-        for word in keyword:
-            print word
-            element.send_keys(word)
+        if is_one_key:
+            for word in keyword:
+                print word
+                element.send_keys(word)
+        else:
+            element.send_keys(keyword)
         element.send_keys(Keys.ENTER)
     except NoSuchElementException:
         print u'没有找到搜索框'

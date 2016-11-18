@@ -1,18 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
-import re
-
-import requests
-import json
-
-import time
-import sys
-from bs4 import BeautifulSoup
-from crawl_full_page import crawl
-
-def get_tmall_prices(soup):
-    pass
-
 
 def filter_price(soup, tag, price_class):
     price_tag = soup.find_all(tag, class_=price_class)

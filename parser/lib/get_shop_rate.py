@@ -2,15 +2,7 @@
 import random
 import re
 
-import requests
-import json
-
-import time
-import sys
 from bs4 import BeautifulSoup
-from crawl_full_page import crawl
-
-
 
 def filter_shop_rate_taobao(soup, tag, class_name):
     ret = {}
