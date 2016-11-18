@@ -19,16 +19,6 @@ from .geturls import get_urls
 from ..proxy.getproxy import update_proxy_pool
 import requests
 
-def get_itemId_sellerId(html):
-    matchObj = re.match(r'.*sellerId=(\d)&amp;itemId=(.*?) .*', html, re.M | re.I)
-
-    if matchObj:
-        print "matchObj.group() : ", matchObj.group()
-        print "matchObj.group(1) : ", matchObj.group(1)
-        print "matchObj.group(2) : ", matchObj.group(2)
-    else:
-        print "No match!!"
-
 def crawl(url, exe_js = True, fail_time=0):
     timeout = config.TIMEOUT
     print u'正在请求', url, u', 请稍后...'
@@ -38,8 +28,8 @@ def crawl(url, exe_js = True, fail_time=0):
             driver = config.DRIVER
             driver.get(url)
             WebDriverWait(driver, timeout).until(
-                # EC.presence_of_element_located((By.ID, "content"))
-                EC.presence_of_element_located((By.ID, "J_TabRecommends"))
+                EC.presence_of_element_located((By.ID, "content"))
+                # EC.presence_of_element_located((By.ID, "J_TabRecommends"))
             )
             result = get_recommends(driver, config.MAX_TRY)
             if result :

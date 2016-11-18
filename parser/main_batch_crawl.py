@@ -1,24 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from lib.get_product_comments import get_comments
+from lib.get_product_comments import get_comments_by_sellerId_itemId
 from lib.get_product_comments import get_itemId_sellerId
-import socket
-import urllib2
 import config
-import re
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from twisted.python.win32 import WindowsError
-from lib.getrecommends import get_recommends
-from lib.filter import filter_comment
-from lib.newdriver import new_driver, new_proxy_driver
+
 from lib.writetofile import write_count, get_count
-from lib.parse import parse_content
 from lib.geturls import get_urls
-from proxy.getproxy import update_proxy_pool
-import requests
 from lib.crawl_full_page import crawl
 from lib.writetofile import write_to_txt
 import commands
@@ -43,13 +30,15 @@ def main():
                 write_to_txt(html, fileName, url)
                 print u'当前已完成采集', config.NOW_COUNT + 1, u'个, 共', config.TOTAL_COUNT, u'个'
                 js = commands.getstatusoutput('grep "<script>(function(w, d)" ' + fileName)
+                if len(js) < 20:
+                    js = commands.getstatusoutput('grep "sellerId" ' + fileName)
                 # commands.getstatusoutput('rm -f ' + fileName)
 
                 count = count + 1
                 # 获取销售id, 商品id
                 (sellerId, itemId) = get_itemId_sellerId(js)
                 # 获取评论并写入文件
-                get_comments(sellerId, itemId)
+                get_comments_by_sellerId_itemId(sellerId, itemId)
             except Exception as e:
                 count = count + 1
                 print u'程序异常，跳过url: ' + url

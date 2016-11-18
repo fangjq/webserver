@@ -25,7 +25,6 @@ def filter_price(soup, tag, price_class):
             print u'价格转换出错 '
             print e
             return None
-        print 'prob price = ' + str(curr_price)
         if min_price is None:
             min_price = curr_price
         elif curr_price < min_price:
