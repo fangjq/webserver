@@ -2,7 +2,7 @@
 
 import re
 
-import config
+from .. import config
 
 
 def get_urls():

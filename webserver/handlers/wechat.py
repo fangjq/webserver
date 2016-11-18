@@ -9,7 +9,13 @@ import time
 from urllib import urlencode
 from urllib import unquote
 
-from parser.main import get_crawled_result
+import traceback
+try:
+    # from parser.main import get_crawled_result
+    # from parser import config
+    from parser.main import *
+except:
+    traceback.print_exc()
 
 logger = logging.getLogger(__name__)
 

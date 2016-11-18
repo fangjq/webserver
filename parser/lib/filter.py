@@ -3,10 +3,11 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 import time
 from pyquery import PyQuery as pq
-import config
+# import config
+from .. import config
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from lib.getdays import get_days
+from .getdays import get_days
 import sys
 
 reload(sys)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import config
+from .. import config
 
 def update_proxy_pool():
 

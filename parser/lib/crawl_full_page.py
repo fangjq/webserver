@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import socket
 import urllib2
-import config
+import sys
+sys.path.append('../')
+import parser.config as config
 import re
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -9,8 +11,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from twisted.python.win32 import WindowsError
 from getrecommends import get_recommends
-from lib.newdriver import new_driver, new_proxy_driver
-from proxy.getproxy import update_proxy_pool
+from filter import filter_comment
+from .newdriver import new_driver, new_proxy_driver
+from .writetofile import write_count, get_count
+from parse import parse_content
+from .geturls import get_urls
+from ..proxy.getproxy import update_proxy_pool
 import requests
 
 def crawl(url, exe_js = True, fail_time=0):

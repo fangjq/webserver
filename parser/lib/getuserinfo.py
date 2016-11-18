@@ -7,14 +7,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from twisted.python.win32 import WindowsError
-import config
+from .. import config
 import time
 import socket
 import re
 import urllib2
 from urllib import quote
-from lib.newdriver import new_driver, new_proxy_driver
-from proxy.getproxy import update_proxy_pool
+from .newdriver import new_driver, new_proxy_driver
+from ..proxy.getproxy import update_proxy_pool
 
 
 def get_user_info(user, fail_time=0):
