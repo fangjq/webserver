@@ -3,7 +3,6 @@ import re
 from bs4 import BeautifulSoup
 
 def get_years(soup):
-    ret = {}
     parent_tag = soup.find('textarea', class_='ks-datalazyload')
     if parent_tag is None:
         return None
@@ -15,5 +14,5 @@ def get_years(soup):
         return None
     group = re.search(u'.*(\d)年店', finded.text)
     if group :
-        ret['shop_age'] = str(group.group(1))
-    return ret
+        return str(group.group(1))
+    return None

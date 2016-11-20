@@ -8,7 +8,7 @@ from get_product_title import get_title
 
 def get_avg_price(soup):
     price = get_price(soup)
-    if price is None:
+    if price == None:
         print None
     title = get_title(soup)
     if title is None:

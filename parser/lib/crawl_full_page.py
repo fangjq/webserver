@@ -31,7 +31,8 @@ def crawl(url, exe_js = True, fail_time=0):
                 EC.presence_of_element_located((By.ID, "content"))
                 # EC.presence_of_element_located((By.ID, "J_TabRecommends"))
             )
-            result = get_recommends(driver, config.MAX_TRY)
+            # result = get_recommends(driver, config.MAX_TRY)
+            result = True
             if result :
                 html = driver.page_source
         else:

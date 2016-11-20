@@ -11,6 +11,8 @@ import config
 import commands
 from crawl_full_page import crawl
 from writetofile import write_to_txt
+from multiprocessing import Pool
+
 
 COMMENTS_FILE = 'file/comments.list'
 
@@ -50,6 +52,7 @@ def get_detail_comments(url):
 
 def get_comments_by_sellerId_itemId(sellerId, itemId, is_write_to_file=True):
     ret = []
+    p = Pool()
     if sellerId is None or itemId is None:
         return None
     url_head = "http://rate.tmall.com/list_detail_rate.htm?itemId=" + str(itemId) + "&sellerId=" + str(sellerId)
@@ -62,7 +65,7 @@ def get_comments_by_sellerId_itemId(sellerId, itemId, is_write_to_file=True):
     for currentPage in range(1, lastPage):
         print u'抓取评论第' + str(currentPage) + u'页'
         url = url_head + "&currentPage=" + str(currentPage)
-        all_content = get_detail_comments(url)
+        all_content = p.apply(get_detail_comments, args=(url,))
         if("rateDetail" not in all_content):
             print u'抓取发生异常，跳过'
             continue

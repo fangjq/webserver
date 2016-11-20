@@ -5,6 +5,9 @@ def filter_price(soup, tag, price_class):
     min_price = None
     for item in price_tag:
         curr_price = item.get_text()
+        if '-' in curr_price:
+            pos = curr_price.find('-')
+            curr_price = curr_price[0:pos]
         try:
             curr_price = float(curr_price)
         except Exception as e:
